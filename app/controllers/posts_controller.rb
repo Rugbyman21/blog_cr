@@ -4,7 +4,7 @@ class PostsController < ApplicationController
   end
 
   def show
-    @post = List.find(params[:id])
+    @post = Post.find(params[:id])
   end
 
   def new
@@ -42,7 +42,7 @@ class PostsController < ApplicationController
 
   private
   def post_params
-    params.require(:list).permit(:title, :content)
+    params.require(:post).permit(:title, :content)
   end
 
 end
