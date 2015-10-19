@@ -1,7 +1,23 @@
 <h1><%= @post.title %></h1>
 
-<p> <%= link_to "Edit", edit_post_path(@post) %></p>
+<% if @post.tags.any? %>
+  <h4> Here are the tasks for this list:</h4>
 
-<p><%= link_to "Delete", post_path(@post), :data => {confirm: "Are Your Sure?", method: "delete"}, class: "btn btn-danger"%></p>
+<ul>
+  <% @post.tags.each do |tag| %>
+    <li>
+      <%= tag.name %>
+      <%= link_to "Edit", edit_post_tag_path(@post, tag) %>
+      <%= link_to "Delete", post_tag_path(@post, tag), :data => {confirm: "Are Your Sure?", method: "delete"}, class: "btn btn-danger"%>
+    </li>
+  <% end %>
+</ul>
+  <% else %>
+    <p>There are no tags yet!</p>
+<% end %>
+
+
+<p> <%= link_to "Add a tag", new_post_tag_path(@post) %></p>
+<p> <%= link_to "Delete post", posts_path(@post), :data => {confirm: "Are you sure?", method: "delete"}, class: "btn btn-danger" %></p>
 
 <p><%= link_to "Return to Posts", posts_path%></p>
