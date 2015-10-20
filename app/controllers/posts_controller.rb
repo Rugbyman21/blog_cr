@@ -3,10 +3,6 @@ class PostsController < ApplicationController
     @posts = Post.all
   end
 
-  def show
-    @post = Post.find(params[:id])
-  end
-
   def new
     @post = Post.new
   end
@@ -18,6 +14,19 @@ class PostsController < ApplicationController
     else
       render :new
     end
+  end
+
+  def show
+    @post = Post.find(params[:id])
+  end
+
+  def destroy
+    post = Post.find(params[:id])
+    post.tag.each do |tag|
+    tag.destroy
+    end
+    post.destroy
+    redirect_to post_path
   end
 
   def edit
@@ -33,16 +42,8 @@ class PostsController < ApplicationController
     end
   end
 
-  def destroy
-    post = Post.find(params[:id])
-    post.destroy
-    redirect_to post_path
-  end
-
-
   private
   def post_params
     params.require(:post).permit(:title, :content)
   end
-
 end

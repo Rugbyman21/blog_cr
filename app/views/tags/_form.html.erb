@@ -3,5 +3,5 @@
 <%= form_for [@post, @task] do |f| %>
   <%= f.label :name %>
   <%= f.text_field :name %>
-<p><%= f.submit %></p>
+<p><%= f.submit class: "btn btn-primary"%></p>
 <% end %>
